@@ -15,7 +15,7 @@ const RenderCampsite = (props) => {
                     </View>
                 </Card.Image>
                 <Text style={{ margin: 20 }}>{campsite.description}</Text>
-                <View>
+                <View style={styles.cardRow} >
                     <Icon
                         name={props.isFavorite ? 'heart' : 'heart-o'}
                         type='font-awesome'

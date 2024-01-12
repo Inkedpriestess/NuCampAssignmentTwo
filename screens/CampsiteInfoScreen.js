@@ -27,7 +27,7 @@ const CampsiteInfoScreen = ({ route }) => {
             campsiteId: campsite.id
         };
 
-        useDispatch(postcomment(newComment));
+        dispatch(postcomment(newComment));
         setShowModal(!showModal);
     };
 
@@ -44,20 +44,17 @@ const CampsiteInfoScreen = ({ route }) => {
                 <Text style={{ fontSize: 14 }}>{item.text}</Text>
                 <Rating
                     name='stars'
-                    type='font-awesome'
                     startingValue={item.rating}
                     style={{
-                        fontSize: 12,
                         imageSize: 10,
                         alignItems: 'flex-start',
                         paddingVertical: '5%'
                     }}
-                    readonly
-                >
+                    readonly>
                 </Rating>
-                <Rating style={{ fontSize: 12 }}>
+                <Text style={{ fontSize: 12 }}>
                     {`-- ${item.author}, ${item.date}`}
-                </Rating>
+                </Text>
             </View>
         );
     };
@@ -111,7 +108,7 @@ const CampsiteInfoScreen = ({ route }) => {
                         placeholder='Comment'
                         leftIcon={{ type: 'font-awesome', name: 'comment-o' }}
                         leftIconContainerStyle={{ paddingRight: 10 }}
-                        onChangeText={(comment) => setComment(comment)}
+                        onChangeText={(comment) => setText(comment)}
                         value={text}
                     />
                     <View style={{ margin: 10 }} >
