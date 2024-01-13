@@ -1,27 +1,32 @@
-import { useSelector } from 'react-redux';
-import { View, FlatList, Text } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    View,
+    FlatList,
+    Text,
+    TouchableOpacity,
+    StyleSheet
+} from 'react-native';
 import { Avatar, ListItem } from 'react-native-elements';
 import Loading from '../components/LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
-import { useDispatch, useSelector } from 'react-redux';
-import { View, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { SwipeRow } from 'react-native-swipe-list-view';
 import { toggleFavorite } from '../features/favorites/favoritesSlice';
-
-const dispatch = useDispatch();
 
 const FavoritesScreen = ({ navigation }) => {
     const { campsitesArray, isLoading, errMess } = useSelector(
         (state) => state.campsites
     );
     const favorites = useSelector((state) => state.favorites);
+    const dispatch = useDispatch();
 
     const renderFavoriteItem = ({ item: campsite }) => {
         return (
             <SwipeRow rightOpenValue={-100}>
                 <View style={styles.deleteView}>
-                    <TouchableOpacity style={styles.deleteTouchable}
-                        onPress={dispatch(toggleFavorite(campsite.id))}>
+                    <TouchableOpacity
+                        style={styles.deleteTouchable}
+                        onPress={() => dispatch(toggleFavorite(campsite.id))}
+                    >
                         <Text style={styles.deleteText}>Delete</Text>
                     </TouchableOpacity>
                 </View>
@@ -34,7 +39,10 @@ const FavoritesScreen = ({ navigation }) => {
                             })
                         }
                     >
-                        <Avatar rounded source={{ uri: baseUrl + campsite.image }} />
+                        <Avatar
+                            rounded
+                            source={{ uri: baseUrl + campsite.image }}
+                        />
                         <ListItem.Content>
                             <ListItem.Title>{campsite.name}</ListItem.Title>
                             <ListItem.Subtitle>
@@ -43,7 +51,7 @@ const FavoritesScreen = ({ navigation }) => {
                         </ListItem.Content>
                     </ListItem>
                 </View>
-            </SwipeRow >
+            </SwipeRow>
         );
     };
 
@@ -88,4 +96,5 @@ const styles = StyleSheet.create({
         width: 100
     }
 });
+
 export default FavoritesScreen;
